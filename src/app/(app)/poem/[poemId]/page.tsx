@@ -1,5 +1,6 @@
 'use client';
 
+import ContentExplanationPopup from '@/components/AI';
 import Navbar from '@/components/Navbar/Navbar';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
@@ -147,6 +148,7 @@ export default function PoemPage() {
   return (<div className='poem-pg'>
     <Navbar/>
     <div className="max-w-4xl mx-auto p-6 space-y-6 bg-white shadow-lg rounded-xl mt-6 border border-gray-200">
+      <ContentExplanationPopup data={poem.content}/>
       <div className="text-center">
         <h1 className="text-4xl font-extrabold text-gray-800 mb-2">{poem.title}</h1>
         <p className="text-md text-gray-500 italic">By {authorname}</p>

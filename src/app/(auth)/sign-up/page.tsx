@@ -87,7 +87,7 @@ export default function SignUpForm() {
   return (
     <div className="login-background flex justify-center items-center min-h-screen">
       <div className="w-full max-w-xl p-3 space-y-8  bg-blur rounded-lg sm:shadow-md sm:shadow-white">
-      <p className="background-text ">शब्दों का संगम, भावनाओं का मंच।</p>
+    
         <div className="text-center z-50">
           <Link href={`/`}>
           <ArrowLeft className="text-white hover:scale-125"/>
@@ -99,6 +99,7 @@ export default function SignUpForm() {
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <div className="input-group">
             <FormField
               name="username"
               control={form.control}
@@ -130,6 +131,8 @@ export default function SignUpForm() {
                 </FormItem>
               )}
             />
+            </div>
+            <div className="input-group">
             <FormField
               name="email"
               control={form.control}
@@ -144,9 +147,10 @@ export default function SignUpForm() {
                 </FormItem>
               )}
             />
+            </div>
            
 
-
+            <div className="input-group">
             <FormField
               name="password"
               control={form.control}
@@ -158,6 +162,7 @@ export default function SignUpForm() {
                 </FormItem>
               )}
             />
+            </div>
             <Button type="submit" className="w-full bg-green-600 hover:bg-green-800  " disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
