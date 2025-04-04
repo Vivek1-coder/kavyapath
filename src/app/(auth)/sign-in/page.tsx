@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner"
 import Link from "next/link";
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { ArrowLeft, Loader2 } from "lucide-react";
 
 
@@ -51,19 +50,7 @@ export default function SignInForm(){
           setIsSubmitting(false);
         };
         
-        const handleGoogleSignIn = async () => {
-          setIsSubmitting(true);
-          const result = await signIn('google', { redirect: false });
       
-          if (result?.error) {
-            toast(result.error);
-          }
-      
-          if (result?.url) {
-            router.replace('/dashboard');
-          }
-          setIsSubmitting(false);
-        };
       
         return (
             <div className="login-background  absolute flex h-full w-full justify-between">
@@ -87,7 +74,7 @@ export default function SignInForm(){
                       control={form.control}
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Email/Username</FormLabel>
+                          <FormLabel>Email</FormLabel>
                           <Input {...field} />
                           <FormMessage />
                         </FormItem>
@@ -110,7 +97,7 @@ export default function SignInForm(){
                   Please wait
                 </>
               ) : (
-                "Sign Up"
+                "Sign In"
               )}</Button>
                   </form>
                   </Form>
@@ -119,14 +106,6 @@ export default function SignInForm(){
           <span className="mx-2 text-gray-400">or</span>
           <hr className="w-1/3 border-t border-gray-300" />
         </div>
-        <Button
-          className="w-full flex items-center justify-center bg-white hover:bg-slate-300 text-gray-700 border border-gray-300"
-          onClick={handleGoogleSignIn}
-          disabled={isSubmitting}
-        >
-          <FcGoogle className="mr-2" size={20} />
-          Sign In with Google
-        </Button>
         <div className="text-center mt-4">
           <p>
             Not a member yet?{' '}
