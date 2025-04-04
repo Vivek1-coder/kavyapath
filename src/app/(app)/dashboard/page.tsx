@@ -3,8 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar/Navbar";
 import ContentArray from "@/components/Card/Card"
-import { useEffect, useState } from "react";
-import axios from "axios";
+
 
 const categories = [
   { name: "देशभक्ति", path: "deshbhakti", color: "bg-orange-500" },
@@ -40,7 +39,7 @@ export default function Page() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              {categories.map((category, index) => (
+              {categories.map((category) => (
                 <Link
                   key={category.path}
                   href={`/category/${category.path}`}

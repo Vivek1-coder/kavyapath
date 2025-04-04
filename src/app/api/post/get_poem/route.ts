@@ -1,6 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
-import mongoose from 'mongoose';
-import LikeModel from '@/model/Like.model';
+
 import dbConnect from '@/lib/dbConnect';
 import PoemModel from '@/model/Poem.model';
 

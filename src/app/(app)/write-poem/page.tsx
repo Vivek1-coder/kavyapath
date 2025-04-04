@@ -1,6 +1,6 @@
 'use client';
 
-import TextEditor from '@/components/Texteditor';
+
 import { useState, useEffect, useMemo } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';

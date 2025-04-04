@@ -18,7 +18,7 @@ interface DataProps {
 
 // Card Component
 function Card({ data }: { data: DataProps }){
-  const { imgUrl, title, author,content } = data;
+  const {  title,content } = data;
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.2,

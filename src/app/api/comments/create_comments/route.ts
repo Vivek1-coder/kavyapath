@@ -1,5 +1,4 @@
 import dbConnect from "@/lib/dbConnect";
-import PoemModel from "@/model/Poem.model";
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]/options";
 import mongoose from "mongoose";

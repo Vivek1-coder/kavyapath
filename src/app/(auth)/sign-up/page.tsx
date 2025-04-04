@@ -69,7 +69,7 @@ export default function SignUpForm() {
     try {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
 
-
+      console.log(response)
       router.replace(`/verify/${username}`);
 
       setIsSubmitting(false);
@@ -79,7 +79,7 @@ export default function SignUpForm() {
       const axiosError = error as AxiosError<ApiResponse>;
 
       const errorMessage = axiosError.response?.data.message;
-
+      console.log(errorMessage);
       setIsSubmitting(false);
     }
   };

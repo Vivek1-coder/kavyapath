@@ -5,10 +5,11 @@ import Link from "next/link";
 import "./Navbar.css";
 
 const Navbar: React.FC = () => {
-  const [isLogin, setIsLogin] = useState<boolean>(true); // Based on authentication
+  const isLogin = true; // Based on authentication
   const router = useRouter();
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    
     const selected = e.target.value;
     if (selected) {
       router.push(`/category/${selected}`);

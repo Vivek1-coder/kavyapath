@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import CommentModel from '@/model/Comment.model'; // adjust path as needed
 import dbConnect from '@/lib/dbConnect';

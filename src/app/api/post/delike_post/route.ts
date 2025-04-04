@@ -27,7 +27,7 @@ export async function POST(request:Request) {
 
         try{
 
-            const oldLike = LikeModel.findOneAndDelete({poemId,userId})
+            LikeModel.findOneAndDelete({poemId,userId})
             
             return Response.json(
                 {

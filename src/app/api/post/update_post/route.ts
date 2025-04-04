@@ -49,7 +49,7 @@ export async function PUT(request:Request){
             );
         }
 
-        const resu =  await mongoose.model('Poem').findByIdAndUpdate(poemId,{title:title,content:content,category:category})
+        await mongoose.model('Poem').findByIdAndUpdate(poemId,{title:title,content:content,category:category})
         
         return Response.json(
             {
