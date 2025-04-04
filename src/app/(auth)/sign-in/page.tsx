@@ -27,6 +27,7 @@ export default function SignInForm(){
         },
     });
 
+
   
     const onSubmit = async(data: z.infer<typeof signInSchema>) => {
       setIsSubmitting(true);
@@ -65,19 +66,21 @@ export default function SignInForm(){
         };
       
         return (
-            <div className="flex justify-center items-center min-h-screen bg-black text-white">
-              <div className="w-full max-w-md py-5 px-8 space-y-8 bg-transparent  rounded-lg sm:shadow-md sm:shadow-white">
+            <div className="login-background  absolute flex h-full w-full justify-between">
+              <p className="background-text">शब्दों का संगम, भावनाओं का मंच।</p>
+              <div className="login-box">
                 <div className="text-center">
                 <Link href={`/`}>
           <ArrowLeft className="text-white hover:scale-125"/>
           </Link>
-                  <p className="text-lg">Welcome Back to </p>
+                  <p className="text-lg">आपका पुनः हार्दिक स्वागत है!</p>
                   <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500 text-4xl font-extrabold lg:text-5xl mb-3">
-                    Xam Buddy
+                  काव्य पथ
                   </h1>
-                  <p className="mb-4">Sign in to continue your preparation</p>
+                  <p className="mb-4">Sign in to your exciting journey</p>
                 </div>
                 <Form {...form}>
+                <div className="login-icon h-fit">KP</div>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                     <FormField
                       name="identifier"
@@ -101,7 +104,7 @@ export default function SignInForm(){
                         </FormItem>
                       )}
                     />
-                    <Button className='w-full bg-green-600 hover:bg-green-500 text-white bg-opacity-60' type="submit" disabled={isSubmitting}>{isSubmitting ? (
+                    <Button className='login-button' type="submit" disabled={isSubmitting}>{isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Please wait
@@ -129,6 +132,17 @@ export default function SignInForm(){
             Not a member yet?{' '}
             <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
               Sign up
+            </Link>
+          </p>
+          <div className="flex items-center justify-center my-4">
+          <hr className="w-1/3 border-t border-gray-300" />
+          <span className="mx-2 text-gray-400">or</span>
+          <hr className="w-1/3 border-t border-gray-300" />
+        </div>
+          <p>
+          Forgot Password?{' '}
+            <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
+              Click here
             </Link>
           </p>
         </div>

@@ -85,9 +85,10 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-black text-white">
-      <div className="w-full max-w-xl p-3 space-y-8  bg-transparent  rounded-lg sm:shadow-md sm:shadow-white">
-        <div className="text-center">
+    <div className="login-background flex justify-center items-center min-h-screen">
+      <div className="w-full max-w-xl p-3 space-y-8  bg-blur rounded-lg sm:shadow-md sm:shadow-white">
+      <p className="background-text ">शब्दों का संगम, भावनाओं का मंच।</p>
+        <div className="text-center z-50">
           <Link href={`/`}>
           <ArrowLeft className="text-white hover:scale-125"/>
           </Link>
