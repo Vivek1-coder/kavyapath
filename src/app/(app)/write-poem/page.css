@@ -1,0 +1,13 @@
+.write-pg{
+    background: radial-gradient(
+      circle at top left,
+      #ff3300 20%,  /* Saffron */
+      #ffcc00 30%,  /* Yellow */
+      white 5%       /* White */
+    ),
+}
+
+.write-pg .pg-content{
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.086);
+}

@@ -9,14 +9,7 @@
       #ff3300 20%,  /* Saffron */
       #ffcc00 30%,  /* Yellow */
       white 5%       /* White */
-    ),
-    radial-gradient(
-      circle at bottom right,
-      #a8e063 20%,  /* Light Green */
-      #56ab2f 30%,  /* Medium Green */
-      #0b6623 5%   /* Dark Green */
     );
-  
 }
 
 .bg-blur{
@@ -213,3 +206,20 @@
   font-weight: bold;
 }
 
+
+.pg-category{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  gap: 20px;
+}
+
+.poem-pg{
+  background: radial-gradient(
+      circle at top left,
+      #ff3300 20%,  /* Saffron */
+      #ffcc00 30%,  /* Yellow */
+      white 5%       /* White */
+    );
+}

@@ -5,6 +5,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import axios from 'axios';
 import TranslatedPoem from '@/components/TranslatedPoem';
+import "./page.css"
+import Navbar from '@/components/Navbar/Navbar';
 
 export default function PoemSubmissionPage() {
   const [title, setTitle] = useState('');
@@ -82,7 +84,11 @@ export default function PoemSubmissionPage() {
   };
 
   return (
-    <main className="max-w-2xl mx-auto p-6 space-y-4">
+    <main className="write-pg ">
+      <Navbar/>
+      <div className="max-w-2xl mx-auto p-6 space-y-4 pg-content  ">
+
+      
       <h1 className="text-3xl font-bold mb-4">कविता लिखें (Write a Poem)</h1>
 
       <div>
@@ -149,12 +155,13 @@ export default function PoemSubmissionPage() {
       )}
 
       <button
-        className="bg-green-600 text-white px-4 py-2 rounded "
+        className="bg-green-600 text-white px-4 py-2 rounded mx-4"
         onClick={handleSubmit}
         disabled={!translatedContent}
       >
         {!translatedContent ?"Loading...": loading2 ? "Submitting":"Submit"} 
       </button>
+      </div>
     </main>
   );
 }

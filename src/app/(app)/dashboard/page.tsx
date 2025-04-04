@@ -1,6 +1,10 @@
-'use client'
+"use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Navbar from "@/components/Navbar/Navbar";
+import ContentArray from "@/components/Card/Card"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const categories = [
   { name: "देशभक्ति", path: "deshbhakti", color: "bg-orange-500" },
@@ -11,38 +15,54 @@ const categories = [
   { name: "श्रृंगार", path: "shringar", color: "bg-purple-500" },
 ];
 
+
 export default function Page() {
+
+  
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-orange-500 via-white to-green-600">
-      <motion.h1 
-        className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-8"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        काव्य पथ श्रेणियाँ
-      </motion.h1>
-      <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-      >
-        {categories.map((category, index) => (
-          <Link key={category.path} href={`/category/${category.path}`} passHref>
-            <motion.div
-              className={`cursor-pointer p-6 rounded-lg shadow-lg transition-transform transform ${category.color} text-white text-center text-xl font-bold`}
-              whileHover={{ scale: 1.05, rotate: 2 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 20 }}
+    <>
+      <div className="dashboard">
+        <Navbar />
+        {/* bg-gradient-to-b from-orange-500 via-white to-green-600  */}
+        <div className="content-box">
+          <div className="dash-upper">
+            <motion.h1
+              className="dash-h1"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay:0.001, duration: 0.4 }}
+              transition={{ duration: 0.6 }}
             >
-              {category.name}
+              काव्य पथ श्रेणियाँ
+            </motion.h1>
+            <motion.div
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              {categories.map((category, index) => (
+                <Link
+                  key={category.path}
+                  href={`/category/${category.path}`}
+                  passHref
+                >
+                  <motion.div
+                    className={`cursor-pointer p-6 rounded-lg shadow-lg transition-transform transform ${category.color} text-white text-center text-xl font-bold`}
+                    whileHover={{ scale: 1.05, rotate: 2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.001, duration: 0.4 }}
+                  >
+                    {category.name}
+                  </motion.div>
+                </Link>
+              ))}
             </motion.div>
-          </Link>
-        ))}
-      </motion.div>
-    </div>
+          </div>
+          <ContentArray/>
+        </div>
+      </div>
+    </>
   );
 }
