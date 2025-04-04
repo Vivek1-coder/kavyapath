@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/transliterate/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-//@ts-ignore
+//@ts-expect-error
 import Sanscript from 'sanscript';
 
 export async function POST(req: NextRequest) {
