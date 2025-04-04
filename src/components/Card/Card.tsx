@@ -5,8 +5,10 @@ import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import deshbhakti from '../../../public/images/deshbhakti.png'
 import Image from "next/image";
+import Link from "next/link";
 // Interface for card props
 interface DataProps {
+  _id: string;
   imgUrl: string;
   title: string;
   author: string;
@@ -15,10 +17,9 @@ interface DataProps {
 }
 
 
-
 // Card Component
 function Card({ data }: { data: DataProps }){
-  const {  title,content } = data;
+  const { _id, title,content } = data;
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -61,9 +62,11 @@ function Card({ data }: { data: DataProps }){
         </p> */}
 
         {/* Read More Button */}
+        <Link href={`/poem/${_id}`}>
         <button className="mt-4 w-full rounded-lg bg-orange-400 px-4 py-2 font-medium text-white transition-colors duration-500 hover:bg-orange-500">
           Read More
         </button>
+        </Link>
       </div>
     </div>
   );
