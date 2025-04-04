@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import "./Navbar.css";
+import LogoutButton from "../Signout";
 
 const Navbar: React.FC = () => {
   const isLogin = true; // Based on authentication
@@ -47,8 +48,7 @@ const Navbar: React.FC = () => {
         </li>
       </ul>
 
-      {!isLogin && <button className="btn">Register</button>}
-      {isLogin && <button className="btn">My Profile</button>}
+      <LogoutButton/>
     </div>
   );
 };

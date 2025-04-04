@@ -22,7 +22,7 @@ function Card({ data }: { data: DataProps }){
   const { _id, title,content } = data;
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.2,
+    threshold: 0.1,
   });
 
   function getFirst10Chars(htmlContent: string): string {
