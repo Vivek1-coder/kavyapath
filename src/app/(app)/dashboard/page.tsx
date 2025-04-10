@@ -20,10 +20,10 @@ export default function Page() {
   
   return (
     <>
-      <div className="dashboard">
+      <div className="dashboard absolute w-screen h-screen overflow-hidden">
         <Navbar />
         {/* bg-gradient-to-b from-orange-500 via-white to-green-600  */}
-        <div className="content-box">
+        <div className="content-box relative w-fit">
           <div className="dash-upper">
             <motion.h1
               className="dash-h1"
@@ -31,7 +31,7 @@ export default function Page() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              काव्य पथ श्रेणियाँ
+              काव्य श्रेणियाँ
             </motion.h1>
             <motion.div
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"

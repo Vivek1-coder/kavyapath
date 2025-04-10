@@ -8,8 +8,8 @@ const LogoutButton: React.FC = () => {
   };
 
   return (
-    <button onClick={handleLogout}>
-      Logout
+    <button onClick={handleLogout} className="hover:cursor-pointer">
+      सत्र समाप्त करें
     </button>
   );
 };

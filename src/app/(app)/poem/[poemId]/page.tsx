@@ -15,6 +15,7 @@ type Poem = {
 };
 
 export default function PoemPage() {
+  const [speed, setSpeed] = useState(1);
   const [poem, setPoem] = useState<Poem | null>(null);
   const [likes, setLikes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
@@ -94,6 +95,7 @@ export default function PoemPage() {
     const strippedHtml = poem.content.replace(/<[^>]*>?/gm, '');
     speech.text = strippedHtml;
     speech.lang = 'hi-IN';
+    speech.rate = speed;
 
     const voices = window.speechSynthesis.getVoices();
     const hindiVoice = voices.find((v) => v.lang === 'hi-IN');
@@ -145,20 +147,51 @@ export default function PoemPage() {
 
   if (!poem) return <p className="p-6 text-center">Loading poem...</p>;
 
-  return (<div className='poem-pg'>
+  return (<div className='poem-pg absolute w-screen h-screen flex flex-col'>
     <Navbar/>
-    <div className="max-w-4xl mx-auto p-6 space-y-6 bg-white shadow-lg rounded-xl mt-6 border border-gray-200">
-      <ContentExplanationPopup data={poem.content}/>
+    <div className='relative w-full h-5/6 overflow-y-auto'>
+    <div className='fixed top-20 right-8'>
+    <ContentExplanationPopup data={poem.content}/>
+    </div>
+    
+    <div className="max-w-3xl mx-auto h-11/12 p-6 space-y-6 bg-white shadow-lg rounded-xl mt-4 border border-gray-200">
       <div className="text-center">
         <h1 className="text-4xl font-extrabold text-gray-800 mb-2">{poem.title}</h1>
         <p className="text-md text-gray-500 italic">By {authorname}</p>
       </div>
 
-      <div className="prose prose-lg max-w-none text-gray-900 bg-gray-50 p-4 rounded-md border">
+      <div className="prose prose-lg max-w-none text-gray-900 bg-gray-50 p-4 rounded-md border h-5/6 overflow-y-auto">
         <div dangerouslySetInnerHTML={{ __html: poem.content }} />
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="mt-6 fixed left-3 top-32 backdrop-blur-lg p-2">
+        <h2 className="text-2xl font-semibold mb-3">💬 प्रतिक्रियाएँ</h2>
+        <div className="space-y-3">
+          {comments.length === 0 && <p className="text-gray-500">अभी तक कोई टिप्पणी नहीं है। अपनी राय सबसे पहले दें!</p>}
+          {comments.map((comment, index) => (
+            <div key={index} className="border border-gray-200 p-3 rounded bg-gray-100">
+              {comment}
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4">
+          <textarea
+            className="w-full border border-gray-300 rounded p-3 resize-none focus:outline-none focus:ring focus:border-blue-300"
+            placeholder="अपनी राय साझा करें..."
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <button
+            className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
+            onClick={handleComment}
+          >
+            ➕ टिप्पणी
+          </button>
+
+        </div>
+      </div>
+      <div className="fixed bottom-1 right-1/3 flex flex-wrap gap-4 justify-center">
         <button
           className={`px-4 py-2 rounded text-white font-semibold transition ${
             isLiked
@@ -176,7 +209,7 @@ export default function PoemPage() {
             className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded transition"
             onClick={handleSpeak}
           >
-            🔊 Listen to Poem
+            🔊 कविता सुनें
           </button>
         )}
 
@@ -185,7 +218,7 @@ export default function PoemPage() {
             className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded transition"
             onClick={handlePause}
           >
-            ⏸️ Pause
+            ⏸️ विराम दें
           </button>
         )}
 
@@ -194,7 +227,7 @@ export default function PoemPage() {
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded transition"
             onClick={handleResume}
           >
-            ▶️ Resume
+            ▶️ पुनः आरंभ करें
           </button>
         )}
 
@@ -203,38 +236,25 @@ export default function PoemPage() {
             className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded transition"
             onClick={handleStop}
           >
-            ⏹️ Stop
+            ⏹️ रोकें
           </button>
         )}
-      </div>
 
-      <div className="mt-6">
-        <h2 className="text-2xl font-semibold mb-3">💬 Comments</h2>
-        <div className="space-y-3">
-          {comments.length === 0 && <p className="text-gray-500">No comments yet. Be the first!</p>}
-          {comments.map((comment, index) => (
-            <div key={index} className="border border-gray-200 p-3 rounded bg-gray-100">
-              {comment}
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-4">
-          <textarea
-            className="w-full border border-gray-300 rounded p-3 resize-none focus:outline-none focus:ring focus:border-blue-300"
-            placeholder="Add a thoughtful comment..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+        <label className='flex items-center gap-2'>
+        गति: {speed.toFixed(1)}x
+          <input
+            type="range"
+            min="0.5"
+            max="2"
+            step="0.1"
+            value={speed}
+            onChange={(e) => setSpeed(parseFloat(e.target.value))}
           />
-          <button
-            className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
-            onClick={handleComment}
-          >
-            ➕ Comment
-          </button>
-        </div>
+        </label>
       </div>
     </div>
+    </div>
+    
   </div>
 
   );

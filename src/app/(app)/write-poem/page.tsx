@@ -84,9 +84,9 @@ export default function PoemSubmissionPage() {
   };
 
   return (
-    <main className="write-pg ">
+    <main className="write-pg absolute w-screen h-screen overflow-hidden">
       <Navbar/>
-      <div className="max-w-2xl mx-auto p-6 space-y-4 pg-content  ">
+      <div className="max-w-2xl h-5/6 mx-auto p-6 space-y-4 pg-content overflow-y-auto  ">
 
       
       <h1 className="text-3xl font-bold mb-4">कविता लिखें (Write a Poem)</h1>
@@ -133,14 +133,16 @@ export default function PoemSubmissionPage() {
         >
           <option value="">Select Category</option>
           <option value="prem">प्रेम</option>
-          <option value="virah">विरह</option>
+          <option value="virah">हास्य</option>
           <option value="deshbhakti">देशभक्ति</option>
-          <option value="anubhav">अनुभव</option>
+          <option value="virras">वीर रस</option>
+          <option value="shringar">श्रृंगार</option>
+          <option value="bhakti">भक्ति</option>
         </select>
       </div>
 
       <button
-        className="bg-blue-600 text-white px-4 py-2 rounded"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:cursor-pointer"
         onClick={handleTransliterate}
         disabled={loading}
       >
@@ -148,14 +150,14 @@ export default function PoemSubmissionPage() {
       </button>
 
       {translatedContent && (
-        <div className="mt-4 p-4 bg-gray-100 rounded border">
+        <div className="mt-4 p-4 h-1/2 bg-gray-100 rounded border overflow-y-auto ">
           <h2 className="text-xl font-semibold mb-2">अनुवादित कविता (Translated Poem)</h2>
           <TranslatedPoem translatedContent={translatedContent}/>
         </div>
       )}
 
       <button
-        className="bg-green-600 text-white px-4 py-2 rounded mx-4"
+        className="bg-green-600 text-white px-4 py-2 rounded mx-4 hover:cursor-pointer"
         onClick={handleSubmit}
         disabled={!translatedContent}
       >

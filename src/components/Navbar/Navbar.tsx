@@ -32,19 +32,19 @@ const Navbar: React.FC = () => {
 
       <ul className="nav-links">
         <li>
-          <Link href="/dashboard">Home</Link>
+          <Link href="/dashboard">मुखपृष्ठ</Link>
         </li>
         <li>
           <select name="category" id="category" onChange={handleCategoryChange}>
-            <option value="">Category</option>
-            <option value="prem">Prem</option>
-            <option value="virah">Virah</option>
-            <option value="deshbhakti">Deshbhakti</option>
-            <option value="haashya">Haashya</option>
+            <option value="">श्रेणी चुनें</option>
+            <option value="prem">प्रेम</option>
+            <option value="virah">विरह</option>
+            <option value="deshbhakti">देशभक्ति</option>
+            <option value="hasya">हास्य</option>
           </select>
         </li>
         <li>
-          <Link href="/write-poem">Add Poem</Link>
+          <Link href="/write-poem">कविता जोड़ें</Link>
         </li>
       </ul>
 

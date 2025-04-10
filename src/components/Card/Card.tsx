@@ -63,8 +63,8 @@ function Card({ data }: { data: DataProps }){
 
         {/* Read More Button */}
         <Link href={`/poem/${_id}`}>
-        <button className="mt-4 w-full rounded-lg bg-orange-400 px-4 py-2 font-medium text-white transition-colors duration-500 hover:bg-orange-500">
-          Read More
+        <button className="mt-4 w-full rounded-lg bg-orange-400 px-4 py-2 font-medium text-white transition-colors duration-500 hover:bg-orange-500 hover:cursor-pointer">
+        और पढ़ें
         </button>
         </Link>
       </div>
@@ -87,10 +87,10 @@ const ContentArray: React.FC = () => {
   
     useEffect(() => {
       fetchPoems()
-    }, [data])
+    }, [])
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-4 ">
       {data.map((card, index) => (
         <Card key={index} data={card} />
       ))}

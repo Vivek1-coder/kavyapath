@@ -62,24 +62,24 @@ const ContentExplanationPopup: React.FC<{ data: string }> = ({ data }) => {
   }
 
   return (
-    <div className="fit-content max-width relative">
+    <div className="fit-content max-width opacity-100 ">
       {/* Trigger Button */}
       <button
         onClick={handlePopup}
-        className="rounded-lg bg-orange-500 px-4 py-2 text-white shadow transition-all duration-500 hover:bg-red-500"
+        className="rounded-lg bg-orange-500 px-4 py-2 text-white shadow  transition-all duration-500 hover:bg-red-500"
       >
-        Explain Using AI
+        व्याख्या
       </button>
 
       {/* Popup Box */}
       {showPopup && (
-        <div className="absolute top-12 right-0 z-50 max-h-96 w-80 overflow-y-auto rounded-xl border border-orange-300 bg-white/90 p-4 shadow-xl backdrop-blur-lg transition-all duration-500">
-          <h3 className="mb-2 text-lg font-semibold text-orange-700">
+        <div className="absolute top-12 right-0  z-[999] max-h-96 opacity-100 w-80 overflow-y-auto rounded-xl border border-orange-300 bg-blue-200 p-4 shadow-xl transition-all duration-500 ">
+          <h3 className="mb-2 text-lg font-semibold text-orange-700 z-[999]">
             व्याख्या
           </h3>
 
           {loading ? (
-            <p className="text-sm text-gray-500 italic">
+            <p className="text-sm text-gray-500 italic z-[999]">
               🔄 व्याख्या लोड हो रही है...
             </p>
           ) : (
@@ -111,7 +111,7 @@ const ContentExplanationPopup: React.FC<{ data: string }> = ({ data }) => {
 
           <button
             onClick={() => setShowPopup(false)}
-            className="mt-4 rounded-md bg-orange-200 px-3 py-1 text-sm text-orange-800 transition-all hover:bg-orange-300"
+            className="mt-4 rounded-md bg-orange-200 px-3 py-1 text-sm text-orange-800 transition-all hover:bg-orange-300 hover:cursor-pointer"
           >
             Close
           </button>

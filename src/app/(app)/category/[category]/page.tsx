@@ -60,8 +60,8 @@ function Card({ data }: { data: DataProps }) {
 
         {/* Read More Button */}
         <Link href={`/poem/${_id}`}>
-        <button className="mt-4 w-full rounded-lg bg-orange-400 px-4 py-2 font-medium text-white transition-colors duration-500 hover:bg-orange-500">
-          Read More
+        <button className="mt-4 w-full rounded-lg bg-orange-400 px-4 py-2 font-medium text-white transition-colors duration-500 hover:bg-orange-500 hover:cursor-pointer">
+        और पढ़ें
         </button>
         </Link>
         
@@ -89,7 +89,7 @@ function ContentArray() {
 
   useEffect(() => {
     fetchPoems();
-  }, [data]);
+  }, []);
 
   return (
     <div className="pg-category login-background overflow-x-hidden">
