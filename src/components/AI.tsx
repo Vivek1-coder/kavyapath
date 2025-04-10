@@ -2,7 +2,7 @@
 // server.js or routes/gemini.js
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
 export async function generateRespones(content:string) {
   const genAI = new GoogleGenerativeAI(
@@ -66,7 +66,7 @@ const ContentExplanationPopup: React.FC<{ data: string }> = ({ data }) => {
       {/* Trigger Button */}
       <button
         onClick={handlePopup}
-        className="rounded-lg bg-orange-500 px-4 py-2 text-white shadow  transition-all duration-500 hover:bg-red-500"
+        className="rounded-lg bg-orange-500 px-4 py-2 text-white shadow  transition-all duration-500 hover:bg-red-500 hover:cursor-pointer"
       >
         व्याख्या
       </button>
@@ -85,22 +85,22 @@ const ContentExplanationPopup: React.FC<{ data: string }> = ({ data }) => {
           ) : (
             <ReactMarkdown
               components={{
-                p: ({ node, ...props }) => (
+                p: ({ ...props }) => (
                   <p
                     className="text-sm leading-relaxed text-gray-800"
                     {...props}
                   />
                 ),
-                strong: ({ node, ...props }) => (
+                strong: ({ ...props }) => (
                   <strong
                     className="font-semibold text-orange-700"
                     {...props}
                   />
                 ),
-                em: ({ node, ...props }) => (
+                em: ({ ...props }) => (
                   <em className="text-gray-600 italic" {...props} />
                 ),
-                li: ({ node, ...props }) => (
+                li: ({ ...props }) => (
                   <li className="ml-4 list-disc" {...props} />
                 ),
               }}
