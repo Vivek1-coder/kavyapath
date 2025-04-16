@@ -1,20 +1,10 @@
 import dbConnect from "@/lib/dbConnect";
-import mongoose from "mongoose";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]/options";
+
 import UserModel from "@/model/User.model";
 
 export async function GET(request:Request) {
     try {
         await dbConnect();
-            const session = await getServerSession(authOptions);
-            if (!session || !session.user) {
-                return new Response(
-                    JSON.stringify({ success: false, message: "Not authenticated" }),
-                    { status: 401 }
-                );
-            }
-            const userId = new mongoose.Types.ObjectId(session.user._id);
     
             const { searchParams } = new URL(request.url);
             const username = searchParams.get('username');
@@ -32,8 +22,9 @@ export async function GET(request:Request) {
             );
     
     } catch (error) {
+        console.log(error);
         return new Response(
-            JSON.stringify({ success:false, message: "Internal server error in getting userdetails" }),
+            JSON.stringify({ success:false, message: "Internal server error in getting userdetails"}),
             { status: 500 }
         );
     }

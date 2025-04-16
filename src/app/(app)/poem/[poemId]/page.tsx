@@ -138,6 +138,7 @@ export default function PoemPage() {
       fetchPoem();
       fetchComments();
       getLikes();
+      console.log(authorname);
     }
   }, [poemId]);
 
