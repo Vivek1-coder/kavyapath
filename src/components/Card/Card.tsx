@@ -6,6 +6,7 @@ import { useInView } from "react-intersection-observer";
 import deshbhakti from '../../../public/images/deshbhakti.png'
 import Image from "next/image";
 import Link from "next/link";
+import { Loader } from "lucide-react";
 // Interface for card props
 interface DataProps {
   _id: string;
@@ -35,7 +36,7 @@ function Card({ data }: { data: DataProps }){
   return (
     <div
       ref={ref}
-      className={`mx-auto max-w-sm overflow-hidden rounded-xl border border-orange-200/40 bg-gradient-to-br from-white/40 via-orange-100/50 to-white/30 shadow-lg backdrop-blur-md transition-all duration-700 ease-in-out hover:bg-orange-50/60 ${
+      className={`mx-auto w-3/4 overflow-hidden rounded-xl border border-orange-200/40 bg-gradient-to-br from-white/40 via-orange-100/50 to-white/30 shadow-lg backdrop-blur-md transition-all duration-700 ease-in-out hover:bg-orange-50/60 ${
         inView ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
       }`}
     >
@@ -75,13 +76,17 @@ function Card({ data }: { data: DataProps }){
 // ContentArray Component
 const ContentArray: React.FC = () => {
   const [data,setData] = useState<DataProps[]>([])
+  const [loading,setIsloading] = useState(false);
 
   const fetchPoems = async() => {
+    setIsloading(true);
       try {
         const response = await axios.get(`/api/poems/get-poems`)
         setData(response.data.poems)
       } catch (error) {
         console.log(error)
+      }finally{
+        setIsloading(false);
       }
     }
   
@@ -90,8 +95,8 @@ const ContentArray: React.FC = () => {
     }, [])
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-4 ">
-      {data.map((card, index) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-4 pb-20 ">
+      {loading?<Loader className="animate-spin h-96"/>:data.map((card, index) => (
         <Card key={index} data={card} />
       ))}
     </div>

@@ -157,7 +157,8 @@ export default function PoemPage() {
     <div className="max-w-3xl mx-auto h-11/12 p-6 space-y-6 bg-white shadow-lg rounded-xl mt-4 border border-gray-200">
       <div className="text-center">
         <h1 className="text-4xl font-extrabold text-gray-800 mb-2">{poem.title}</h1>
-        <p className="text-md text-gray-500 italic">By {authorname}</p>
+        {/* <p className="text-md text-gray-500 italic">By {authorname}</p> */}
+        <p className="text-md text-gray-500 italic">— प्रकृति</p>
       </div>
 
       <div className="prose prose-lg max-w-none text-gray-900 bg-gray-50 p-4 rounded-md border h-5/6 overflow-y-auto">

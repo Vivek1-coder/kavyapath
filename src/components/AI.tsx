@@ -1,13 +1,18 @@
+'use client'
 /* eslint-disable no-unused-vars */
 // server.js or routes/gemini.js
 
+
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
-export async function generateRespones(content:string) {
-  const genAI = new GoogleGenerativeAI(
-    "AIzaSyA0nnq1TqDs4_A4LhxCArnGntKu2Juz4P0",
-  ); // put your key in .env
+export async function generateRespones(content:string,apiKey:string) {
+
+  
+  if (!apiKey) {
+    throw new Error("API key is missing. Please set NEXT_PUBLIC_TINY_MCE in your .env file.");
+  }
+  const genAI = new GoogleGenerativeAI(apiKey); // put your key in .env
   const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
   const prompt = `आपको नीचे एक हिंदी कविता दी गई है। कृपया इसे ध्यान से पढ़ें और इसका एक भावनात्मक, गहराई से भरा और स्पष्ट विश्लेषण प्रस्तुत करें।
@@ -44,6 +49,7 @@ const ContentExplanationPopup: React.FC<{ data: string }> = ({ data }) => {
   const [loading, setLoading] = useState(false);
 
   const  content  = data;
+  const apiKey = useMemo(() => process.env.NEXT_PUBLIC_GEMINI || "", []);
 
   async function handlePopup() {
     setShowPopup(true);
@@ -51,7 +57,7 @@ const ContentExplanationPopup: React.FC<{ data: string }> = ({ data }) => {
     if (!explanation) {
       setLoading(true);
       try {
-        const response = await generateRespones(content);
+        const response = await generateRespones(content,apiKey);
         setExplanation(response);
       } catch (err) {
         console.error("Error fetching explanation:", err);

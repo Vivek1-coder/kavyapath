@@ -7,6 +7,7 @@ import { useInView } from "react-intersection-observer";
 import Image from "next/image";
 import Navbar from "@/components/Navbar/Navbar";
 import Link from "next/link";
+import { Loader} from "lucide-react";
 
 interface DataProps {
   _id: string;
@@ -72,11 +73,12 @@ function Card({ data }: { data: DataProps }) {
 
 function ContentArray() {
   const [data, setData] = useState<DataProps[]>([]);
-
+  const [isLoading,setIsloading] = useState(true);
   const params = useParams();
   const category = params?.category;
 
   const fetchPoems = async () => {
+    setIsloading(true);
     try {
       const response = await axios.get(
         `/api/poems/get-category-poems?category=${category}`
@@ -84,6 +86,8 @@ function ContentArray() {
       setData(response.data.poems);
     } catch (error) {
       console.log(error);
+    }finally{
+      setIsloading(false);
     }
   };
 
@@ -95,7 +99,8 @@ function ContentArray() {
     <div className="pg-category login-background overflow-x-hidden">
       <Navbar />
       <div className="grid grid-cols-3 gap-10">
-        {data.map((card, index) => {
+      
+        {isLoading?<div className="w-screen flex justify-center"><Loader className="animate-spin h-96"/></div>:data.map((card, index) => {
           return <Card key={index} data={card}/>;
         })}
       </div>
