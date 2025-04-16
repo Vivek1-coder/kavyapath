@@ -4,10 +4,16 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import "./Navbar.css";
 import LogoutButton from "../Signout";
+import { useSession } from "next-auth/react";
+
 
 const Navbar: React.FC = () => {
   const isLogin = true; // Based on authentication
   const router = useRouter();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") return <p>Loading...</p>;
+  if (!session) return <p>You are not logged in</p>;
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     
@@ -48,7 +54,14 @@ const Navbar: React.FC = () => {
         </li>
       </ul>
 
-      <LogoutButton/>
+      <Link href={`/profile/${session.user?.name}`}>
+      <button className="hover:cursor-pointer">
+      प्रोफ़ाइल
+      </button>
+      </Link>
+      
+
+      
     </div>
   );
 };
