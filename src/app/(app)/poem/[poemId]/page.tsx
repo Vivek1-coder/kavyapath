@@ -3,6 +3,7 @@
 import ContentExplanationPopup from '@/components/AI';
 import Navbar from '@/components/Navbar/Navbar';
 import axios from 'axios';
+import { Loader } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -146,7 +147,7 @@ export default function PoemPage() {
     window.speechSynthesis.getVoices();
   }, []);
 
-  if (!poem) return <p className="p-6 text-center">Loading poem...</p>;
+  if (!poem) return <div className="p-6 flex justify-center"><Loader className='animate-spin'/></div>;
 
   return (<div className='poem-pg absolute w-screen h-screen flex flex-col'>
     <Navbar/>
