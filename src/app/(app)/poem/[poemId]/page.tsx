@@ -25,6 +25,7 @@ export default function PoemPage() {
   const [newComment, setNewComment] = useState('');
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
   const params = useParams();
   const poemId = params?.poemId;
@@ -98,10 +99,11 @@ export default function PoemPage() {
     speech.lang = 'hi-IN';
     speech.rate = speed;
 
-    const voices = window.speechSynthesis.getVoices();
-    const hindiVoice = voices.find((v) => v.lang === 'hi-IN');
+    const hindiVoice = voices.find((v) => v.lang === 'hi-IN') || voices.find(v => v.lang.startsWith('hi'));
     if (hindiVoice) {
       speech.voice = hindiVoice;
+    } else {
+      console.warn('Hindi voice not available. Default voice will be used.');
     }
 
     speech.onend = () => {
@@ -139,126 +141,129 @@ export default function PoemPage() {
       fetchPoem();
       fetchComments();
       getLikes();
-      console.log(authorname);
     }
   }, [poemId]);
 
   useEffect(() => {
-    window.speechSynthesis.getVoices();
+    const loadVoices = () => {
+      const availableVoices = window.speechSynthesis.getVoices();
+      setVoices(availableVoices);
+    };
+
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
   }, []);
 
   if (!poem) return <div className="p-6 flex justify-center"><Loader className='animate-spin'/></div>;
 
-  return (<div className='poem-pg absolute w-screen h-screen flex flex-col'>
-    <Navbar/>
-    <div className='relative w-full h-5/6 overflow-y-auto'>
-    <div className='fixed top-20 right-8'>
-    <ContentExplanationPopup data={poem.content}/>
-    </div>
-    
-    <div className="max-w-3xl mx-auto h-11/12 p-6 space-y-6 bg-white shadow-lg rounded-xl mt-4 border border-gray-200">
-      <div className="text-center">
-        <h1 className="text-4xl font-extrabold text-gray-800 mb-2">{poem.title}</h1>
-        {/* <p className="text-md text-gray-500 italic">By {authorname}</p> */}
-        <p className="text-md text-gray-500 italic">— प्रकृति</p>
-      </div>
+  return (
+    <div className='poem-pg absolute w-screen h-screen flex flex-col'>
+      <Navbar/>
+      <div className='relative w-full h-5/6 overflow-y-auto'>
+        <div className='fixed top-20 right-8'>
+          <ContentExplanationPopup data={poem.content}/>
+        </div>
 
-      <div className="prose prose-lg max-w-none text-gray-900 bg-gray-50 p-4 rounded-md border h-5/6 overflow-y-auto">
-        <div dangerouslySetInnerHTML={{ __html: poem.content }} />
-      </div>
+        <div className="max-w-3xl mx-auto h-11/12 p-6 space-y-6 bg-white shadow-lg rounded-xl mt-4 border border-gray-200">
+          <div className="text-center">
+            <h1 className="text-4xl font-extrabold text-gray-800 mb-2">{poem.title}</h1>
+            <p className="text-md text-gray-500 italic">— प्रकृति</p>
+          </div>
 
-      <div className="mt-6 fixed left-3 top-32 backdrop-blur-lg p-2">
-        <h2 className="text-2xl font-semibold mb-3">💬 प्रतिक्रियाएँ</h2>
-        <div className="space-y-3">
-          {comments.length === 0 && <p className="text-gray-500">अभी तक कोई टिप्पणी नहीं है। अपनी राय सबसे पहले दें!</p>}
-          {comments.map((comment, index) => (
-            <div key={index} className="border border-gray-200 p-3 rounded bg-gray-100">
-              {comment}
+          <div className="prose prose-lg max-w-none text-gray-900 bg-gray-50 p-4 rounded-md border h-5/6 overflow-y-auto">
+            <div dangerouslySetInnerHTML={{ __html: poem.content }} />
+          </div>
+
+          <div className="mt-6 fixed left-3 top-32 backdrop-blur-lg p-2">
+            <h2 className="text-2xl font-semibold mb-3">💬 प्रतिक्रियाएँ</h2>
+            <div className="space-y-3">
+              {comments.length === 0 && <p className="text-gray-500">अभी तक कोई टिप्पणी नहीं है। अपनी राय सबसे पहले दें!</p>}
+              {comments.map((comment, index) => (
+                <div key={index} className="border border-gray-200 p-3 rounded bg-gray-100">
+                  {comment}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="mt-4">
-          <textarea
-            className="w-full border border-gray-300 rounded p-3 resize-none focus:outline-none focus:ring focus:border-blue-300"
-            placeholder="अपनी राय साझा करें..."
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-          />
-          <button
-            className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
-            onClick={handleComment}
-          >
-            ➕ टिप्पणी
-          </button>
+            <div className="mt-4">
+              <textarea
+                className="w-full border border-gray-300 rounded p-3 resize-none focus:outline-none focus:ring focus:border-blue-300"
+                placeholder="अपनी राय साझा करें..."
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+              <button
+                className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded"
+                onClick={handleComment}
+              >
+                ➕ टिप्पणी
+              </button>
+            </div>
+          </div>
 
+          <div className="fixed bottom-1 right-1/3 flex flex-wrap gap-4 justify-center">
+            <button
+              className={`px-4 py-2 rounded text-white font-semibold transition ${
+                isLiked
+                  ? 'bg-red-600 cursor-not-allowed'
+                  : 'bg-gray-500 hover:bg-red-500'
+              }`}
+              onClick={handleLike}
+              disabled={isLiked}
+            >
+              👏 Clap ({likes})
+            </button>
+
+            {!isSpeaking && (
+              <button
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded transition"
+                onClick={handleSpeak}
+              >
+                🔊 कविता सुनें
+              </button>
+            )}
+
+            {isSpeaking && !isPaused && (
+              <button
+                className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded transition"
+                onClick={handlePause}
+              >
+                ⏸️ विराम दें
+              </button>
+            )}
+
+            {isSpeaking && isPaused && (
+              <button
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded transition"
+                onClick={handleResume}
+              >
+                ▶️ पुनः आरंभ करें
+              </button>
+            )}
+
+            {isSpeaking && (
+              <button
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded transition"
+                onClick={handleStop}
+              >
+                ⏹️ रोकें
+              </button>
+            )}
+
+            <label className='flex items-center gap-2'>
+              गति: {speed.toFixed(1)}x
+              <input
+                type="range"
+                min="0.5"
+                max="2"
+                step="0.1"
+                value={speed}
+                onChange={(e) => setSpeed(parseFloat(e.target.value))}
+              />
+            </label>
+          </div>
         </div>
       </div>
-      <div className="fixed bottom-1 right-1/3 flex flex-wrap gap-4 justify-center">
-        <button
-          className={`px-4 py-2 rounded text-white font-semibold transition ${
-            isLiked
-              ? 'bg-red-600 cursor-not-allowed'
-              : 'bg-gray-500 hover:bg-red-500'
-          }`}
-          onClick={handleLike}
-          disabled={isLiked}
-        >
-          👏 Clap ({likes})
-        </button>
-
-        {!isSpeaking && (
-          <button
-            className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded transition"
-            onClick={handleSpeak}
-          >
-            🔊 कविता सुनें
-          </button>
-        )}
-
-        {isSpeaking && !isPaused && (
-          <button
-            className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded transition"
-            onClick={handlePause}
-          >
-            ⏸️ विराम दें
-          </button>
-        )}
-
-        {isSpeaking && isPaused && (
-          <button
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded transition"
-            onClick={handleResume}
-          >
-            ▶️ पुनः आरंभ करें
-          </button>
-        )}
-
-        {isSpeaking && (
-          <button
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded transition"
-            onClick={handleStop}
-          >
-            ⏹️ रोकें
-          </button>
-        )}
-
-        <label className='flex items-center gap-2'>
-        गति: {speed.toFixed(1)}x
-          <input
-            type="range"
-            min="0.5"
-            max="2"
-            step="0.1"
-            value={speed}
-            onChange={(e) => setSpeed(parseFloat(e.target.value))}
-          />
-        </label>
-      </div>
     </div>
-    </div>
-    
-  </div>
-
   );
 }
