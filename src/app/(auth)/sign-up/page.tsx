@@ -70,7 +70,7 @@ export default function SignUpForm() {
       const response = await axios.post<ApiResponse>("/api/sign-up", data);
 
       console.log(response)
-      router.replace(`/verify/${username}`);
+      router.replace(`/sign-in`);
 
       setIsSubmitting(false);
     } catch (error) {
@@ -140,9 +140,6 @@ export default function SignUpForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <Input {...field} name="email" />
-                  <p className="text-gray-600 text-sm">
-                    *We will send you a verification code
-                  </p>
                   <FormMessage />
                 </FormItem>
               )}

@@ -6,8 +6,8 @@ export interface User extends Document {
   password: string;
   profilePicture?: string;
   bio?: string;
-  verifyCode: string;
-  verifyCodeExpiry: Date;
+  verifyCode?: string;
+  verifyCodeExpiry?: Date;
   isVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -22,15 +22,15 @@ const UserSchema = new Schema<User>(
     bio: { type: String },
     verifyCode: {
       type: String,
-      required: [true, "Verification code is required"],
+      required: false,
     },
     verifyCodeExpiry: {
       type: Date,
-      required: [true, "verify Code Expiry is required"],
+      required: false,
     },
     isVerified: {
       type: Boolean,
-      default: false,
+      default: true,
     },
   },
   { timestamps: true }
