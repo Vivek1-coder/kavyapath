@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @next/next/no-img-element */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";

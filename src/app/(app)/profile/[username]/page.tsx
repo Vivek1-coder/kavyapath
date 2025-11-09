@@ -6,6 +6,8 @@ import React, { useEffect, useState } from "react";
 import LogoutButton from "../../../../components/Signout";
 import { LoaderCircle } from "lucide-react";
 import Navbar from "@/components/Navbar/Navbar";
+import Image from "next/image";
+
 interface ProfileProps {
   url: string;
   name: string;
@@ -20,7 +22,7 @@ interface ProfileProps {
 const ProfilePhoto: React.FC<{ url: string }> = ({ url }) => {
   return (
     <div className="h-24 w-24 overflow-hidden rounded-full border-4 border-white shadow-lg z-50">
-      <img src={url} alt="Profile" className="h-full w-full object-cover" />
+      <Image src={url} alt="Profile" width={96} height={96} className="h-full w-full object-cover" />
     </div>
   );
 };

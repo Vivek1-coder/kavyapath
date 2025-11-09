@@ -21,7 +21,6 @@ export default function PoemPage() {
   const [likes, setLikes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [comments, setComments] = useState<string[]>([]);
-  const [authorname, setAuthorname] = useState<string>('Mr. Unknown');
   const [newComment, setNewComment] = useState('');
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -34,18 +33,8 @@ export default function PoemPage() {
     try {
       const res = await axios.get(`/api/post/get_poem?poemId=${poemId}`);
       setPoem(res.data.poem);
-      fetchAuthorName(res.data.poem.author);
     } catch (err) {
       console.error('Failed to fetch poem', err);
-    }
-  };
-
-  const fetchAuthorName = async (authorId: string) => {
-    try {
-      const res = await axios.get(`/api/get-author?authorId=${authorId}`);
-      setAuthorname(res.data.username || 'Unknown Author');
-    } catch (err) {
-      console.error('Failed to fetch author name', err);
     }
   };
 
@@ -142,6 +131,7 @@ export default function PoemPage() {
       fetchComments();
       getLikes();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [poemId]);
 
   useEffect(() => {

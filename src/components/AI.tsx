@@ -1,5 +1,4 @@
 'use client'
-/* eslint-disable no-unused-vars */
 // server.js or routes/gemini.js
 
 
